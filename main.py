@@ -741,14 +741,13 @@ async def get_stats(x_api_key: str = Header(None)):
     }
 
 
-@app.exception_handler(HTTPException)
-async def http_exception_handler(request, exc):
-    return JSONResponse(
-        status_code=exc.status_code,
-        content={
-            "status": "error",
-            "detail": exc.detail
-        }
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(
+        "main:app",
+        host="0.0.0.0",
+        port=int(os.getenv("PORT", 8080)),
     )
 
 
